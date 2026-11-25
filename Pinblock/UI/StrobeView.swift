@@ -1,3 +1,4 @@
+import PinblockCore
 import SwiftUI
 
 struct StrobeView: View {

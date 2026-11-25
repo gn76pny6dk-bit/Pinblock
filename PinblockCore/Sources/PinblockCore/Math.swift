@@ -81,14 +81,14 @@ enum PB {
     static let pi = Double.pi
 }
 
-enum Cents {
+public enum Cents {
     /// Cents from `reference` up to `actual`. Positive means `actual` is sharp.
-    static func between(_ reference: Double, _ actual: Double) -> Double? {
+    public static func between(_ reference: Double, _ actual: Double) -> Double? {
         guard reference > 0, actual > 0, reference.isFinite, actual.isFinite else { return nil }
         return 1200 * PB.log2(actual / reference)
     }
 
-    static func shift(_ frequency: Double, by cents: Double) -> Double {
+    public static func shift(_ frequency: Double, by cents: Double) -> Double {
         guard frequency > 0, cents.isFinite else { return frequency }
         return frequency * PB.pow(2, cents / 1200)
     }
