@@ -11,7 +11,7 @@ final class FFTSetupCache: @unchecked Sendable {
         lock.lock()
         defer { lock.unlock() }
         if let existing = setups[log2n] { return existing }
-        guard let created = vDSP_create_fftsetup(vDSP_Length(log2n), FFT_RADIX2) else {
+        guard let created = vDSP_create_fftsetup(vDSP_Length(log2n), FFTRadix(FFT_RADIX2)) else {
             fatalError("vDSP_create_fftsetup failed")
         }
         setups[log2n] = created
@@ -37,7 +37,7 @@ enum AccelerateFourier {
                         vDSP_ctoz(complex, 2, &split, 1, vDSP_Length(half))
                     }
                 }
-                vDSP_fft_zrip(setup, &split, 1, vDSP_Length(log2n), FFT_FORWARD)
+                vDSP_fft_zrip(setup, &split, 1, vDSP_Length(log2n), FFTDirection(FFT_FORWARD))
             }
         }
         var magnitudes = [Float](repeating: 0, count: half + 1)
